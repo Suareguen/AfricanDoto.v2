@@ -11,7 +11,7 @@ const initializeAndListenWithExpress = () => {
       .use(express.json())
       .use(morgan("dev"))
       .use(cors())
-      //.use('/api', require('./api/routes))
+      .use('/api', require('./api/routes/index.js'))
       .listen(process.env.PORT, () => {
         console.log(`> Listening on port: ${process.env.PORT}`);
       });
@@ -24,7 +24,7 @@ async function checkAndSyncMySQL() {
     try {
           await checkConnection();
           addRelationsToModels();
-          await syncModels();
+          await syncModels('force');
     } catch (error) {
         throw error
     }
