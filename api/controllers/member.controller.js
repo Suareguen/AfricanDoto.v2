@@ -123,6 +123,19 @@ async function updateMyMember(req, res) {
                  memberId: res.locals.member.id,
                });
              }
+             if (req.body.role === "volunteer_donor") {
+               if (previousRole === "donor") {
+                 await Volunteer.create({
+                   memberId: res.locals.member.id,
+                 });
+               }
+               if (previousRole === "volunteer") {
+                 await Donor.create({
+                   memberId: res.locals.member.id,
+                 });
+               }
+
+             }
             return res.status(200).json({ message: 'Member updated', member: member })
         } else {
             return res.status(404).send('Member not found')
