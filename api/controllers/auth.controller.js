@@ -10,21 +10,18 @@ const signUp = async (req, res) => {
             return res.status(500).json('You can\'t declare yourself as an admin')
         }
         const member = await Member.create(req.body)
-        // if (req.body.role === 'donor') {
-        //     await member.createDonor()
-        // }
-        // if (req.body.role === 'volunteer') {
+        if (req.body.role === 'donor') {
+            await member.createDonor()
+        }
+        if (req.body.role === 'volunteer') {
         //     const profession = req.body.profession;
         //     const professional = await Proffesional.findAll({
         //         where: {
         //             name: profession
         //         }
         //     })
-        //     await member.createVolunteer({
-        //         memberId: member.id,
-        //         professionalId: professional[0].id
-        //     });
-        // }
+        await member.createVolunteer()
+        }
         const token = jwt.sign({ email: member.email }, 'secret', { expiresIn: '7h' })
         return res.status(200).json({member, token})
     } catch (error) {
