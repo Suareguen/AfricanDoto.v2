@@ -1,24 +1,28 @@
-const router = require("express").Router();
+const router = require('express').Router()
 
-const {
-  getAllMembers,
-  deleteMember,
-  updateMember,
-  createMember,
-  getOneMember,
-  getMyMember,
-  updateMyMember,
-  deleteMyMember,
-} = require("../controllers/member.controller");
+const { getAllMembers,
+    deleteMember,
+    updateMember,
+    createMember,
+    getOneMember,
+    getMyMember,
+    updateMyMember,
+    deleteMyMember 
+} = require('../controllers/member.controller.js')
 
-const { checkAuth, checkAdmin } = require("../middlewares/auth");
 
+
+
+//Members
+router.get('/profile', getMyMember)
+router.put('/profile', updateMyMember)
+router.delete('/profile', deleteMyMember)
 
 //Admin
-router.get("/", checkAuth, checkAdmin, getAllMembers);
-router.get("/:id", checkAuth, checkAdmin, getOneMember);
-router.post("/", checkAuth, checkAdmin, createMember);
-router.put("/:id", checkAuth, checkAdmin, updateMember);
-router.delete("/:id", checkAuth, checkAdmin, deleteMember);
+router.get('/', getAllMembers)
+router.get('/:id', getOneMember)
+router.post('/', createMember)
+router.put('/:id', updateMember)
+router.delete('/:id', deleteMember)
 
-module.exports = router;
+module.exports = router
