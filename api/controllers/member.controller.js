@@ -109,6 +109,13 @@ async function updateMyMember(req, res) {
                    memberId: res.locals.member.id,
                  });
                }
+               if(previousRole === "volunteer_donor") {
+                 await Volunteer.destroy({
+                   where: {
+                     memberId: res.locals.member.id,
+                   },
+                 });
+               }
              }
 
              if (req.body.role === "volunteer") {
@@ -118,23 +125,29 @@ async function updateMyMember(req, res) {
                      memberId: res.locals.member.id,
                    },
                  });
-               }
-               await Volunteer.create({
-                 memberId: res.locals.member.id,
-               });
-             }
-             if (req.body.role === "volunteer_donor") {
-               if (previousRole === "donor") {
                  await Volunteer.create({
                    memberId: res.locals.member.id,
                  });
                }
-               if (previousRole === "volunteer") {
-                 await Donor.create({
-                   memberId: res.locals.member.id,
+               if (previousRole === "volunteer_donor") {
+                 await Donor.destroy({
+                   where: {
+                     memberId: res.locals.member.id,
+                   },
                  });
                }
-
+             }
+             if(req.body.role === "volunteer_donor") {
+                if(previousRole === "donor") {
+                    await Volunteer.create({
+                      memberId: res.locals.member.id,
+                    });
+                }
+                if(previousRole === "volunteer") {
+                    await Donor.create({
+                      memberId: res.locals.member.id,
+                    });
+                }
              }
             return res.status(200).json({ message: 'Member updated', member: member })
         } else {
