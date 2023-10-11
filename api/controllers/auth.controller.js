@@ -22,6 +22,11 @@ const signUp = async (req, res) => {
         //     })
         await member.createVolunteer()
         }
+
+        if(req.body.role === "volunteer_donor") {
+            await member.createDonor()
+            await member.createVolunteer()
+        }
         const token = jwt.sign({ email: member.email }, 'secret', { expiresIn: '7h' })
         return res.status(200).json({member, token})
     } catch (error) {
