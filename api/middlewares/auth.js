@@ -2,10 +2,12 @@ const jwt = require('jsonwebtoken')
 const Member = require('../models/member.model')
 
 const checkAuth = (req, res, next) => {
-    const token = req.headers.token
-    jwt.verify(token, 'secret', async (err, payload) => {
+    if(!req.headers.authorization) {
+        return res.status(404).json({ message: 'Token not found'})
+    }
+    jwt.verify(req.headers.authorization, 'secret', async (err, payload) => {
         if (err) {
-            return res.status(400).send('Token not found')
+            return res.status(401).send('Invalid token')
         }
         const member = await Member.findOne({
             where:
@@ -15,10 +17,11 @@ const checkAuth = (req, res, next) => {
         })
         res.locals.member = member
         if (!member) {
-            return res.status(400).send('Invalid token')
+            return res.status(401).send('Invalid token')
         }
         next()
     })
+
 }
 
 

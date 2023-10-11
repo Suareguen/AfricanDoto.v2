@@ -24,6 +24,7 @@ const Member = connection.define(
         },
         email: {
             type: DataTypes.STRING,
+            unique: true,
             validate: {
                 notEmpty: {
                     msg: "Error: El correo electrónico no puede estar vacío."
