@@ -49,7 +49,7 @@ const login = async (req, res) => {
         const compare = bcrypt.compareSync(req.body.password, member.password)
         if(compare) {
             const token = jwt.sign({ email: member.email }, 'secret', { expiresIn: '7h' })
-            return res.status(200).json({message: 'Member created.', token})
+            return res.status(200).json({message: 'Member logged.', token})
         }
         return res.status(400).json({message: 'Error: Wrong Email or Password'})
     }

@@ -8,10 +8,16 @@ const addRelationsToModels = () => {
     try {
         // Relations here
 
-        Member.hasOne(Donor)
+        Member.hasOne(Donor, {
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE'
+        })
         Donor.belongsTo(Member)
 
-        Member.hasOne(Volunteer);
+        Member.hasOne(Volunteer, {
+          onDelete: "CASCADE",
+          onUpdate: "CASCADE",
+        });
         Volunteer.belongsTo(Member);
 
         
