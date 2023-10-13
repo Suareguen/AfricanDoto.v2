@@ -12,7 +12,7 @@ async function getAllMembers(req, res) {
             return res.status(404).send('No Members found')
         }
     } catch (error) {
-        res.status(500).send(error.message)
+        return res.status(500).send(error.message)
     }
 }
 
@@ -25,7 +25,7 @@ async function getOneMember(req, res) {
             return res.status(404).send('Member not found')
         }
     } catch (error) {
-        res.status(500).send(error.message)
+        return res.status(500).send(error.message)
     }
 }
 
@@ -34,7 +34,7 @@ async function createMember(req, res) {
         const member = await Member.create(req.body)
         return res.status(200).json({ message: 'Member created', member: member })
     } catch (error) {
-        res.status(500).send(error.message)
+        return res.status(500).send(error.message)
     }
 }
 
@@ -82,7 +82,7 @@ async function getMyMember(req, res) {
             return res.status(404).send('Member not found')
         }
     } catch (error) {
-        res.status(500).send(error.message)
+        return res.status(500).send(error.message)
     }
 }
 

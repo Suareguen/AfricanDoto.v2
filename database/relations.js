@@ -1,7 +1,7 @@
 const Member = require('../api/models/member.model.js')
 const Donor = require("../api/models/donor.model.js");
 const Volunteer = require("../api/models/volunteer.model.js");
-
+const Professional = require('../api/models/professions.model.js')
 
 
 const addRelationsToModels = () => {
@@ -20,6 +20,8 @@ const addRelationsToModels = () => {
         });
         Volunteer.belongsTo(Member);
 
+        Professional.hasMany(Volunteer)
+        Volunteer.belongsTo(Professional)
         
     } catch (error) {
         throw error
