@@ -37,6 +37,10 @@ async function createProfession(req, res) {
     }
 }
 
+const getUsers = () => {
+
+}
+
 async function updateProfession(req, res) {
     try {
         const [memberExist, profession] = await Profession.update(req.body, {
@@ -71,11 +75,6 @@ async function deleteProfession(req, res) {
         return res.status(500).send(error.message)
     }
 }
-
-
-
-
-
 
 
 
