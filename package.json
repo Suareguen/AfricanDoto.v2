@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-     "mysql:init": "npx env db push --force-reset --schema=./env && npx africandotoV2 db seed",
+     "mysql:init": "npx env db push --force-reset --schema=./env && npx defaultdb db seed",
     "start": "node index.js"
   },
   "keywords": [],
