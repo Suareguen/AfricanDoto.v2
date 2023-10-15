@@ -8,7 +8,6 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-     "mysql:init": "mysql://avnadmin:AVNS_ixTKHh4_1I4nDnk96hE@africandoto-adrian-a60f.aivencloud.com:26493/defaultdb?ssl-mode=REQUIRED",
     "start": "node index.js"
   },
   "keywords": [],
