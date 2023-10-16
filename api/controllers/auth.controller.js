@@ -21,7 +21,8 @@ const signUp = async (req, res) => {
                     name: profession
                 }
             })
-        await member.createVolunteer()
+            const volunteer =  await member.createVolunteer()
+            await professional.addVolunteer(volunteer)
         }
 
         if(req.body.role === "volunteer_donor") {
