@@ -6,7 +6,8 @@ const connection = new Sequelize(
   process.env.DB_PASSWORD,
   {
     dialect: process.env.DIALECT,
-    port: 26493,
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
     logging: false,
   }
 );
