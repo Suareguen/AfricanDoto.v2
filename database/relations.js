@@ -25,8 +25,11 @@ const addRelationsToModels = () => {
         Professional.hasMany(Volunteer)
         Volunteer.belongsTo(Professional)
 
-        // Volunteer.belongsToMany(Events)
-        // Events.belongsToMany(Volunteer)
+        Volunteer.belongsToMany(Event, { through: 'volunteer_event', timestamps: false  })
+        Event.belongsToMany(Volunteer, { through: 'volunteer_event' })
+
+        EventCategory.hasMany(Event)
+        Event.belongsTo(EventCategory)
         
     } catch (error) {
         throw error
