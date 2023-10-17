@@ -23,7 +23,10 @@ const signUp = async (req, res) => {
 
         if(req.body.role === "volunteer_donor") {
             await member.createDonor()
-            await member.createVolunteer()
+            const profession = req.body.profession
+            const professional = await Professional.findByPk(req.body.profession)
+            const volunteer = await member.createVolunteer()
+            await professional.addVolunteer(volunteer)
         }
         const token = jwt.sign({ email: member.email }, 'secret', { expiresIn: '7h' })
         return res.status(200).json({member, token})
