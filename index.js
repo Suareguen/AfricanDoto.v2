@@ -24,7 +24,7 @@ async function checkAndSyncMySQL() {
     try {
           await checkConnection();
           addRelationsToModels();
-          await syncModels('force');
+          await syncModels('alter');
     } catch (error) {
         throw error
     }

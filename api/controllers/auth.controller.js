@@ -2,7 +2,7 @@ const Member = require('../models/member.model.js')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const Professional = require('../models/professions.model.js')
-// const Proffesional = require('../models/professional.model')
+
 
 const signUp = async (req, res) => {
     try {
@@ -16,11 +16,7 @@ const signUp = async (req, res) => {
         }
         if (req.body.role === 'volunteer') {
             const profession = req.body.profession
-            const professional = await Professional.findAll({
-                where: {
-                    name: profession
-                }
-            })
+            const professional = await Professional.findByPk(req.body.profession)
             const volunteer =  await member.createVolunteer()
             await professional.addVolunteer(volunteer)
         }
