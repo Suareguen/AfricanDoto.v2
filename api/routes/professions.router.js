@@ -8,7 +8,6 @@ const {
     deleteProfession
 } = require('../controllers/professional.controller.js')
 
-const { checkAdmin } = require('../middlewares/auth.js')
 
 
 

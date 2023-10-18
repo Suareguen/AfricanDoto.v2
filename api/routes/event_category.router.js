@@ -8,7 +8,6 @@ const {
     deleteEvent
 } = require('../controllers/event_category.controller.js')
 
-const { checkAdmin } = require('../middlewares/auth.js')
 
 
 
