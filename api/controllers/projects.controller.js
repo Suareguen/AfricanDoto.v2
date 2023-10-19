@@ -1,4 +1,7 @@
+const Professional = require('../models/professions.model')
+const ProfessionsNeeded = require('../models/professions_needed.model')
 const Projects = require('../models/projects.model')
+const Volunteer = require('../models/volunteer.model')
 
 
 
@@ -30,26 +33,42 @@ async function getOneProjects(req, res) {
 
 async function createProjects(req, res) {
     try {
+        let volunteersArray = []
         const project = await Projects.create(req.body)
-        return res.status(200).json({ message: 'Projects created', project: project })
+        const professionNeeded = await Professional.findByPk(req.body.professoinId)
+        const professionalNeeded = await ProfessionsNeeded.create({
+            projectId: project.id,
+            professionId: professionNeeded.id,
+            quantity: req.body.quantity
+        })
+        if(req.body.volunteersIds.length >= 1) {
+            for (let i = 0; i < req.body.volunteersIds.length; i++) {
+                let volunteer  = await Volunteer.findByPk(req.body.volunteersIds[i])
+                volunteersArray.push(volunteer)
+                //await professionalNeeded.addVolunteer(volunteer)
+            }
+            console.log(volunteersArray)
+            await professionalNeeded.addVolunteers(volunteersArray)
+        }
+        else {
+            await project.addProfessional(professionNeeded)
+        }
+        return res.status(200).json({ message: 'Project created', project: project })
     } catch (error) {
-        return res.status(500).send(error.message)
+        return res.status(500).send(error)
     }
 }
 
-const getUsers = () => {
-
-}
 
 async function updateProjects(req, res) {
     try {
-        const [ProjectsExist, project] = await Projects.update(req.body, {
+        const [projectExist, project] = await Projects.update(req.body, {
             returning: true,
             where: {
                 id: req.params.id,
             },
         })
-        if (memberExist !== 0) {
+        if (projectExist !== 0) {
             return res.status(200).json({ message: 'Projects updated', project: project })
         } else {
             return res.status(404).send('Projects not found')
@@ -75,6 +94,8 @@ async function deleteProjects(req, res) {
         return res.status(500).send(error.message)
     }
 }
+
+
 
 
 
