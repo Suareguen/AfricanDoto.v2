@@ -45,10 +45,10 @@ async function createProjects(req, res) {
             for (let i = 0; i < req.body.volunteersIds.length; i++) {
                 let volunteer  = await Volunteer.findByPk(req.body.volunteersIds[i])
                 volunteersArray.push(volunteer)
-                //await professionalNeeded.addVolunteer(volunteer)
+                await professionalNeeded.addVolunteer(volunteer)
             }
-            console.log(volunteersArray)
             await professionalNeeded.addVolunteers(volunteersArray)
+            
         }
         else {
             await project.addProfessional(professionNeeded)
