@@ -41,14 +41,12 @@ async function createProjects(req, res) {
             professionId: professionNeeded.id,
             quantity: req.body.quantity
         })
-        if(req.body.volunteersIds.length >= 1) {
+        if(req.body.volunteersIds.length > 0) {
             for (let i = 0; i < req.body.volunteersIds.length; i++) {
                 let volunteer  = await Volunteer.findByPk(req.body.volunteersIds[i])
                 volunteersArray.push(volunteer)
-                await professionalNeeded.addVolunteer(volunteer)
             }
             await professionalNeeded.addVolunteers(volunteersArray)
-            
         }
         else {
             await project.addProfessional(professionNeeded)
