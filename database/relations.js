@@ -4,6 +4,10 @@ const Volunteer = require("../api/models/volunteer.model.js");
 const Professional = require('../api/models/professions.model.js')
 const Event = require('../api/models/events.model.js')
 const EventCategory = require('../api/models/event_category.model.js')
+const Project = require('../api/models/projects.model.js')
+const ProfessionsNeeded = require('../api/models/professions_needed.model.js')
+
+
 
 
 const addRelationsToModels = () => {
@@ -30,6 +34,14 @@ const addRelationsToModels = () => {
 
         EventCategory.hasMany(Event)
         Event.belongsTo(EventCategory)
+
+
+        Project.belongsToMany(Professional, { through: ProfessionsNeeded, foreignKey: "projectId", otherKey: "professionId" })
+        Professional.belongsToMany(Project, { through: ProfessionsNeeded, foreignKey: "professionId", otherKey: "projectId" })
+
+        Volunteer.belongsToMany(ProfessionsNeeded,  { through: 'volunteer_project', timestamps: false })
+        ProfessionsNeeded.belongsToMany(Volunteer,  { through: 'volunteer_project', timestamps: false })
+
         
     } catch (error) {
         throw error

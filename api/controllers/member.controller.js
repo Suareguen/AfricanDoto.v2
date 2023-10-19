@@ -95,7 +95,6 @@ async function updateMyMember(req, res) {
                 id: res.locals.member.id,
             },
         })
-       
         if (member !== 0) {
              const previousRole = findMember.role;
              if (req.body.role === "donor") {
