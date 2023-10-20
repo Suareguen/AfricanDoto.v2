@@ -94,6 +94,22 @@ async function deleteProjects(req, res) {
 }
 
 
+const volunteerProjectProposal = async (req, res) => {
+    try {
+        const project = await Projects.create(req.body)
+        const professionNeeded = await Professional.findByPk(req.body.professoinId)
+        const professionalNeeded = await ProfessionsNeeded.create({
+            projectId: project.id,
+            professionId: professionNeeded.id,
+            quantity: req.body.quantity
+        })
+        return res.status(200).json(`Yout project has been created succesfully. Wait for aprovement. `)
+    } catch (error) {
+        return res.status(500).send(error.message)
+    }
+}
+
+
 
 
 
@@ -103,5 +119,6 @@ module.exports = {
     getOneProjects,
     createProjects,
     updateProjects,
-    deleteProjects
+    deleteProjects,
+    volunteerProjectProposal
 }

@@ -5,7 +5,8 @@ const {
     getOneProjects,
     createProjects,
     updateProjects,
-    deleteProjects
+    deleteProjects,
+    volunteerProjectProposal
 } = require('../controllers/projects.controller.js')
 
 
@@ -15,9 +16,10 @@ const {
 
 //Admin
 router.get('/', getAllProjectss)
-router.get("/:id", getOneProjects);
-router.post("/", createProjects);
-router.put("/:id", updateProjects);
-router.delete("/:id", deleteProjects);
+router.get("/:id", getOneProjects)
+router.post("/", createProjects)
+router.post("/projectProposal", volunteerProjectProposal)
+router.put("/:id", updateProjects)
+router.delete("/:id", deleteProjects)
 
 module.exports = router
