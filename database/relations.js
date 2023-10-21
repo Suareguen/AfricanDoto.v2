@@ -6,7 +6,8 @@ const Event = require('../api/models/events.model.js')
 const EventCategory = require('../api/models/event_category.model.js')
 const Project = require('../api/models/projects.model.js')
 const ProfessionsNeeded = require('../api/models/professions_needed.model.js')
-const Equipment = require('../api/models/equipment.model.js')
+const Equipment = require('../api/models/equipment.model.js');
+const Donations = require('../api/models/donations.model.js');
 
 
 
@@ -47,6 +48,8 @@ const addRelationsToModels = () => {
         Equipment.belongsToMany(Project, { through: 'project_equipment', timestamps: false})
         Project.belongsToMany(Equipment, { through: 'project_equipment', timestamps: false})
 
+        Donor.hasMany(Donations)
+        Donations.belongsTo(Donor)
         
     } catch (error) {
         throw error
